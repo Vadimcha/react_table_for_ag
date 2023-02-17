@@ -20,6 +20,5 @@ export function useStudents() {
       setLoading(false)
     }
   }
-
   return { students, error, loading }
 }
