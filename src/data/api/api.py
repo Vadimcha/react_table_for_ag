@@ -16,9 +16,14 @@ app.add_middleware(
 
 api_router = APIRouter()
 
-@api_router.get("/get_db", status_code=200)
+@api_router.get("/get_database", status_code=200)
 def root() -> dict:
     data = print_table("database")
+    return data
+
+@api_router.get("/get_users", status_code=200)
+def root() -> dict:
+    data = print_table("users")
     return data
 
 app.include_router(api_router)
@@ -27,4 +32,4 @@ if __name__ == "__main__":
     # Use this for debugging purposes only
     import uvicorn
 
-    uvicorn.run(app, host="0.0.0.0", port=8001, log_level="debug")
+    uvicorn.run(app, host="0.0.0.0", port=3000, log_level="debug")

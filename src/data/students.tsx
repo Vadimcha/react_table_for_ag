@@ -1,12 +1,12 @@
 import { AgStudent } from "../models";
 import {useEffect, useState} from "react";
 
-export function Return_db() {
+export function Return_db(re) {
   const [res, setResponse] = useState(null)
 
   useEffect(() => {
     async function fetchData() {
-      const response = await fetch("http://localhost:8001/get_db",);
+      const response = await fetch(`http://localhost:3000/get_${re}`,);
       const json = await response.json();
       setResponse(json);
     }
