@@ -6,7 +6,7 @@ export function Return_db(re) {
 
   useEffect(() => {
     async function fetchData() {
-      const response = await fetch(`http://localhost:3000/get_${re}`,);
+      const response = await fetch(`http://localhost:8001/get_${re}`,);
       const json = await response.json();
       setResponse(json);
     }

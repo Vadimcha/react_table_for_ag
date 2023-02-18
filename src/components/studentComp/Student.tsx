@@ -8,22 +8,18 @@ interface StudentProps {
 }
 
 export function Student({ children, search }: StudentProps) {
-  let color = "", text = ""; 
-  if(children["status"] === 0) {
+  let color = "", text = "";
+  if (children["status"] === 1) {
     color = "red";
-    text = "Не разрешено";
-  }
-  else if (children["status"] === 1) {
-    color = "yellow";
     text = "Опаздывает";
   }
   else if (children["status"] === 2) {
-    color = "green";
-    text = "Гуляет";
+    color = "yellow";
+    text = "Не в АГ";
   }
   else if (children["status"] === 3) {
-    color = "primary";
-    text = "В АГ";
+    color = "green";
+    text = "Вернулся АГ";
   }
 
   let pos = children["st"].indexOf(search)

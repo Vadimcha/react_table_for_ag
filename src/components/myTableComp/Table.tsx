@@ -5,12 +5,15 @@ import { Student } from '../studentComp/Student'
 import { Return_db } from '../../data/students'
 import { AgStudent } from '../../models'
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import { compare_date, compare_time } from '../../compare_date'
+import { checkStatus } from '../../checkStatus'
 
 
 
 export function Table() {
   var data:any = Return_db("database")
   var users:any = Return_db("users")
+  
   var sts:any = {}
   for (var item in users){
     sts[users[item]["st"].toString()] = {
@@ -19,13 +22,11 @@ export function Table() {
       "room": users[item]["room"]
     }
   }
-  // console.log(JSON.stringify(sts))
   var students: AgStudent[] = []
-  for(var item in data){
-    // if (data[item.toString()]["KEY"] in users) {
-    var name = `${sts[data[item.toString()]["KEY"]]["name"]} ${sts[data[item.toString()]["KEY"]]["surname"]}` 
-    let name_arr = name.split(' ')
-    name = name_arr[1] + " " + name_arr[0]
+  for(item in data){
+    var name = `${sts[data[item.toString()]["KEY"]]["surname"]} ${sts[data[item.toString()]["KEY"]]["name"]}` 
+
+    let status = checkStatus(data[item.toString()]["entrance_date"], data[item.toString()]["entrance_time"], data[item.toString()]["flag"]);
     students[item]={
       st: name,
       exit_date: data[item.toString()]["exit_date"],
@@ -33,7 +34,7 @@ export function Table() {
       entrance_date: data[item.toString()]["entrance_date"],
       entrance_time: data[item.toString()]["entrance_time"],
       reason: data[item.toString()]["reason"],
-      status: 0,
+      status: status,
     // }
   }
   }
@@ -52,41 +53,11 @@ export function Table() {
   // Time Comparator
   else if(comp === 1 || comp === 2) {
     students.sort(function(a, b) {
-      let keyp = (comp == 2 ? "entrance_" : "exit_")
-
-      let ans = 0;
-      let Adate = a[(keyp+"date")].split('.') // день, месяц, год
-      let Atime = a[(keyp+"time")].split(':') // час(24ч), минуты
-      let ADate = Adate.map((x) => parseInt(x))
-      let ATime = Atime.map((x) => parseInt(x))
-
-      let Bdate = b[(keyp+"date")].split('.') // день, месяц, год
-      let Btime = b[(keyp+"time")].split(':') // час(24ч), минуты
-      let BDate = Bdate.map((x) => parseInt(x))
-      let BTime = Btime.map((x) => parseInt(x))
-      
-      // Сравнение годов
-      if(ADate[2] < BDate[2]) ans = -1;
-      else if(ADate[2] > BDate[2]) ans = 1;
-      
-      // Сравнение месяцев
-      else if(ADate[1] < BDate[1]) ans = -1;
-      else if(ADate[1] > BDate[1]) ans = 1;
-
-      // Сравнение дней
-      else if(ADate[0] < BDate[0]) ans = -1;
-      else if(ADate[0] > BDate[0]) ans = 1;
-
-      // Сравнение часов
-      else if(ATime[0] < BTime[0]) ans = -1;
-      else if(ATime[0] > BTime[0]) ans = 1;
-
-      // Сравнение минут
-      else if(ATime[1] < BTime[1]) ans = -1;
-      else if(ATime[1] > BTime[1]) ans = 1;
-      // console.log(keyp)
-      // console.log(a[keyp+"time"] + " " + a[keyp+"date"] + "   vs   "  + b[keyp+"time"] + " " + b[keyp+"date"] + "     equal: " + ans.toString());
-      return ans;
+      let keyp = (comp === 2 ? "entrance_" : "exit_")
+      let ans = compare_date(a[keyp+"date"], b[keyp+"date"])
+      if(ans !== 0) return ans;
+      ans = compare_time(a[keyp+"time"], b[keyp+"time"])
+      return ans
     })
   }
   // Status Comparator

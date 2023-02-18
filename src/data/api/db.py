@@ -13,7 +13,7 @@ def create_connection(path):
     return connection
 
 def print_table(table: str) -> list:
-    connection = create_connection("./src/data/api/journal_ag_bot.sqlite")
+    connection = create_connection("src/data/api/journal_ag_bot.sqlite")
     query = f"SELECT * from {table}"
     cursor = connection.cursor()
     result = None
