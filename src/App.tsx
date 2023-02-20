@@ -1,18 +1,19 @@
-import React from 'react';
+import {Route, Routes, BrowserRouter  } from 'react-router-dom'
 
-
-import { Table } from './components/myTableComp/Table'
-import { Student } from './components/studentComp/Student';
+import { RegistrationPage } from './pages/registration_page'; 
+import { MainPage } from './pages/main_page';
 import { useStudents } from './hooks/students';
-// import { ErrorMessage } from './components/errorMessageComp/ErrorMessage';
 
 function App() {
   const {students, error, loading} = useStudents()
 
   return (
-    <div className="App">
-      <Table />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={ <MainPage /> }/>
+        <Route path="/registration" element={ <RegistrationPage /> }/>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
