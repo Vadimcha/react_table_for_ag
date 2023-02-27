@@ -7,7 +7,7 @@ export function checkStatus(entrance_date, entrance_time, flag) {
 
   let date_c = compare_date(entrance_date, dateString), time_c = compare_time(entrance_time, timeString);
   if(flag) return 3;
-  else if(date_c == 1 || (date_c == 0 && time_c == -1)) return 2;
-  else if(date_c == -1) return 1;
+  else if(date_c === 1 || (date_c === 0 && time_c === 1)) return 2;
+  else if(date_c === -1 || (date_c === 0 && time_c === -1)) return 1;
   else return 1;
 }
