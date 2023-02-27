@@ -1,7 +1,7 @@
 import { AgStudent } from '../models'
 import axios, { AxiosError } from 'axios'
 import { useState } from 'react'
-import { students } from '../data/students' 
+// import { students } from '../data/api' 
 
 export function useStudents() {
   const [products, setProducts] = useState<AgStudent[]>([])
@@ -11,8 +11,8 @@ export function useStudents() {
   async function fetchStudents() {
     try {
       setLoading(true)
-      const response = students
-      setProducts(response)
+      // const response = students
+      // setProducts(response)
       setLoading(false)
     } 
     catch (e: unknown) {
@@ -20,5 +20,6 @@ export function useStudents() {
       setLoading(false)
     }
   }
-  return { students, error, loading }
+  return { error, loading }
+  // return { students, error, loading }
 }

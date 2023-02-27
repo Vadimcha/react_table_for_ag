@@ -5,7 +5,7 @@ import { MainPage } from './pages/main_page';
 import { useStudents } from './hooks/students';
 
 function App() {
-  const {students, error, loading} = useStudents()
+  // const {students, error, loading} = useStudents()
 
   return (
     <BrowserRouter>
