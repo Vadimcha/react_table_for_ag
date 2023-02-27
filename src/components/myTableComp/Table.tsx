@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import './style/style.css'
 import { Student } from '../studentComp/Student'
 // import { students } from '../../data/students'
-import { Fetch_api } from '../../data/api'
 import { AgStudent } from '../../models'
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import { compare_date, compare_time } from '../../compare_date'
@@ -38,7 +37,7 @@ export function Table() {
       "room": users[item]["room"]
     }
   }
-  console.log(sts)
+  // console.log(sts)
   for (item in data) {
 
     var name = `${sts[data[item.toString()].KEY]["surname"]} ${sts[data[item.toString()]["KEY"]]["name"]}`
@@ -55,11 +54,7 @@ export function Table() {
       // }
     }
   }
-  // var data:any = Fetch_api("database")
-  // var users:any = Fetch_api("users")
 
-  // init()
-  console.log(students)
   let students_data = students;
   const [comp, SetComp] = useState(0)
   // Name Comparator
